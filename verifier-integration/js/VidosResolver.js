@@ -34,7 +34,6 @@ class VidosResolver {
       },
     });
     const result = await response.json();
-    // console.log("root result", JSON.stringify(result, null, 2));
 
     const globalInfo = result.didDocument.verificationMethod[0].global;
     if (globalInfo == null) throw new Error('gist info not found')

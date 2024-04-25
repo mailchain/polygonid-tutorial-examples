@@ -1,3 +1,4 @@
+require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const { auth, resolver } = require("@iden3/js-iden3-auth");
@@ -6,9 +7,6 @@ const VidosResolver = require("./VidosResolver");
 
 const app = express();
 const port = 8080;
-
-const VIDOS_RESOLVER_URL = undefined; // 'https://ugly-aqua-hummingbird-120.resolver.service.eu.vidos.local';
-const VIDOS_API_KEY = undefined; // '24b500499e7c2f0a8634831d1b9894b74d656d3e7cd6de238d706c20a5db6d41';
 
 app.use(express.static("../static"));
 
@@ -89,7 +87,13 @@ async function callback(req, res) {
     ethURL,
     contractAddress
   );
-  const vidosResolver = VIDOS_RESOLVER_URL && VIDOS_API_KEY ? new VidosResolver(VIDOS_RESOLVER_URL, VIDOS_API_KEY) : undefined;
+  const vidosResolver =
+    process.env.VIDOS_RESOLVER_URL && process.env.VIDOS_API_KEY
+      ? new VidosResolver(
+          process.env.VIDOS_RESOLVER_URL,
+          process.env.VIDOS_API_KEY
+        )
+      : undefined;
 
   const resolvers = {
     ["polygon:amoy"]: vidosResolver ?? ethStateResolver,
