@@ -90,7 +90,8 @@ async function callback(req, res) {
     process.env.VIDOS_RESOLVER_URL && process.env.VIDOS_API_KEY
       ? new VidosResolver(
           process.env.VIDOS_RESOLVER_URL,
-          process.env.VIDOS_API_KEY
+          process.env.VIDOS_API_KEY,
+          'amoy'
         )
       : undefined;
 
